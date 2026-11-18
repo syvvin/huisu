@@ -178,7 +178,8 @@ function renderDict() {
       const res = await API.removeWord(word.id, q.partId);
       setWords(res.words || []);
       emit('library-stale');
-      toast('已移除');
+      if (res.result?.deleted) toast('已从本 Part 移除；该词没有其他来源，词条已删除');
+      else toast(`已从本 Part 移除；仍有 ${res.result?.remaining ?? 0} 个来源`);
       await openDict(q.lemma, { partId: q.partId, cue: q.cue, auto: false, preserveHistory: true });
     } catch (err) { toast(err.message, 'err'); }
   });
@@ -254,7 +255,7 @@ function dictBody(lemma, word) {
   const actions = known
     ? `<span class="tag gold">已收录 · 掌握 ${known.box}/5</span>
        ${word && !currentSource ? '<button class="btn sm" id="dict-add-cue">＋ 收录这句话</button>' : ''}
-       ${word ? '<button class="btn sm danger" id="dict-remove" style="margin-left:auto">移除</button>' : ''}`
+       ${word ? '<button class="btn sm danger" id="dict-remove" style="margin-left:auto" title="只移除本 Part 中包含这个词的句子，不影响其他 Part">在本 Part 中移除</button>' : ''}`
     : S.dictQuery.partId
       ? `<button class="btn primary sm" id="dict-add">＋ 收进本集</button>`
       : '<span class="dim">在某一集里打开时才能收录</span>';
