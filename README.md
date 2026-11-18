@@ -46,3 +46,11 @@ python -m pip install -r requirements.txt
 - **英英释义与例句**：Wiktionary / Free Dictionary API。
 
 游戏视频、字幕版权归原权利人所有。本项目仅用于个人学习。
+
+## 许可
+
+MIT License，见 [LICENSE](LICENSE)。游戏素材版权归原权利人所有，不包含在本许可证内。
+
+## 版本
+
+0.0.1
