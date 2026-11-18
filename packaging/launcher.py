@@ -65,6 +65,20 @@ def app_ready() -> bool:
         return False
 
 
+def apply_rounded_corners() -> None:
+    """Ask DWM for Windows 11 rounded corners on the frameless window."""
+    try:
+        hwnd = ctypes.windll.user32.FindWindowW(None, APP)
+        if not hwnd:
+            return
+        preference = ctypes.c_int(2)  # DWMWCP_ROUND
+        ctypes.windll.dwmapi.DwmSetWindowAttribute(
+            hwnd, 33, ctypes.byref(preference), ctypes.sizeof(preference)
+        )
+    except Exception:
+        log("ROUND CORNERS ERROR\n" + traceback.format_exc())
+
+
 def stop_server() -> None:
     try:
         from vocab import server
@@ -167,6 +181,7 @@ class WindowApi:
                     self._window.maximize()
                 else:
                     self._window.resize(*self._normal_size)
+            threading.Timer(0.15, apply_rounded_corners).start()
         return self._fullscreen
 
 
@@ -241,6 +256,7 @@ def main() -> int:
             js_api=api,
         )
         api._window = window
+        window.events.shown += lambda: threading.Timer(0.2, apply_rounded_corners).start()
         window.events.closing += lambda: stop_server()
         window.events.closed += lambda: threading.Timer(0.3, lambda: os._exit(0)).start()
         log(f"opening frameless desktop window {APP} 0.0.1")
