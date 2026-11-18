@@ -40,15 +40,9 @@ python -m pip install -r requirements.txt
 
 ## 数据来源与第三方项目
 
-- **视频、剧本与双语字幕**：UTTU 站点 <https://uttu.merui.net> 及 YouTube 上的游戏录像；资源提取器基于 `uttu-extractor`。
+- **视频、剧本与双语字幕**：UTTU 站点 <https://uttu.merui.net> 及其在 YouTube 上发布的游戏录像。
 - **离线词典**：ECDICT，MIT License，<https://github.com/skywind3000/ECDICT>。
 - **CEFR 数据**：Words CEFR Dataset / cefrpy，MIT License，<https://github.com/Maximax67/Words-CEFR-Dataset>。
 - **英英释义与例句**：Wiktionary / Free Dictionary API。
-- **中文释义、词源、词形、例句等**：有道词典公开页面接口，结果会缓存。
-- **运行时与打包**：Python、pywebview、Microsoft WebView2、PyInstaller、Inno Setup、ffmpeg、yt-dlp、requests、BeautifulSoup、lxml。
 
-游戏视频、字幕、图片和文本版权归原权利人所有。本项目仅用于个人学习，不分发游戏资源。
-
-## 版本
-
-0.0.1
+游戏视频、字幕版权归原权利人所有。本项目仅用于个人学习。
