@@ -51,6 +51,3 @@ python -m pip install -r requirements.txt
 
 MIT License，见 [LICENSE](LICENSE)。游戏素材版权归原权利人所有，不包含在本许可证内。
 
-## 版本
-
-0.0.1
