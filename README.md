@@ -16,7 +16,7 @@
 
 ### Windows 安装包
 
-从 [Releases](https://github.com/syvvin/huisu/releases) 下载 `回溯-0.0.1-win64-setup.exe`。安装时可选择任意目录；安装包自带 Python、WebView2、ffmpeg、yt-dlp、ECDICT 和资源提取器。
+从 [Releases](https://github.com/syvvin/huisu/releases) 下载 `huisu-0.0.1-win64-setup.exe`。安装时可选择任意目录；安装包自带 Python、WebView2、ffmpeg、yt-dlp、ECDICT 和资源提取器。
 
 ### 源码运行
 
