@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>回溯 · REVERSE: 1999</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=001">
+<link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png?v=001">
+<link rel="shortcut icon" href="/favicon.ico?v=001">
+<link rel="apple-touch-icon" href="/favicon-180.png?v=001">
+<link rel="icon" type="image/svg+xml" href="/logo.svg?v=001">
+<meta name="theme-color" content="#0c1511">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="titlebar" id="titlebar" hidden>
+  <div class="titlebar-drag pywebview-drag-region" id="titlebar-drag">
+    <img class="titlebar-logo" src="/logo.svg" alt="">
+    <span class="titlebar-name">回溯</span>
+    <span class="titlebar-sub">REVERSE: 1999</span>
+  </div>
+  <div class="titlebar-actions">
+    <button class="win-btn" id="win-min" title="最小化" aria-label="最小化"><span class="win-glyph min"></span></button>
+    <button class="win-btn" id="win-max" title="最大化" aria-label="最大化"><span class="win-glyph max"></span></button>
+    <button class="win-btn close" id="win-close" title="关闭" aria-label="关闭"><span class="win-glyph close"></span></button>
+  </div>
+</div>
+<button class="nav-toggle" id="nav-toggle" aria-label="打开导航">☰</button>
+<aside class="sidebar" id="sidebar">
+  <div class="side-brand">
+    <a class="brand-home" href="#/">
+      <img class="brand-logo" src="/logo.svg" alt="">
+      <span class="brand-name">回溯</span>
+    </a>
+    <span class="brand-sub">REVERSE: 1999</span>
+  </div>
+  <nav class="side-nav">
+    <a href="#/" data-nav="library">片库</a>
+    <a href="#/wordbook" data-nav="wordbook">词库</a>
+    <a href="#/review">待温习 <b id="side-due">0</b></a>
+    <a href="#/extract" data-nav="extract">资源</a>
+  </nav>
+  <div class="side-foot">
+    <button id="btn-theme" title="切换主题">☼</button>
+    <button id="btn-settings">⚙ 设置</button>
+  </div>
+</aside>
+<div class="nav-scrim" id="nav-scrim"></div>
+
+<div class="app" id="app">
+  <div class="shell" id="shell">
+    <main class="main" id="main"></main>
+    <aside class="panel" id="panel" aria-hidden="true"></aside>
+  </div>
+</div>
+<div class="scrim" id="scrim"></div>
+<div class="toast-wrap" id="toast-wrap"></div>
+<div class="modal-root" id="modal-root"></div>
+<script>
+  window.addEventListener('error', function (event) {
+    var box = document.getElementById('boot-error');
+    if (!box) {
+      box = document.createElement('div');
+      box.id = 'boot-error';
+      box.style.cssText = 'position:fixed;left:12px;bottom:12px;z-index:999;max-width:70vw;background:#2a1a16;border:1px solid #b5624f;color:#e8ddc6;padding:10px 14px;font:11px/1.6 monospace;white-space:pre-wrap';
+      document.body.appendChild(box);
+    }
+    box.textContent = '脚本错误：' + (event.message || '') + '\n' + (event.filename || '') + ':' + (event.lineno || '');
+  });
+</script>
+<script type="module" src="/js/main.js"></script>
+</body>
+</html>

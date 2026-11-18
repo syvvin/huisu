@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UTTU 故事资源提取器</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">UTTU</div>
+      <div>
+        <h1>故事资源提取器</h1>
+        <p>扫描站点 · 勾选 Part · 导出分卷视频与双语字幕</p>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <a class="ghost-link" href="https://uttu.merui.net/" target="_blank" rel="noreferrer">打开 UTTU ↗</a>
+      <button id="refreshSite" class="btn btn-ghost" type="button">重新扫描站点</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="panel tree-panel">
+      <div class="panel-head">
+        <div>
+          <h2>故事目录</h2>
+          <p id="treeMeta" class="muted">正在读取站点…</p>
+        </div>
+        <div class="tree-actions">
+          <button id="expandAll" class="icon-btn" type="button" title="展开分类">⤢</button>
+          <button id="collapseAll" class="icon-btn" type="button" title="收起全部">⤡</button>
+        </div>
+      </div>
+      <div class="tree-toolbar">
+        <input id="filter" type="search" placeholder="筛选分类 / 章节 / 已加载的 Part…" autocomplete="off">
+      </div>
+      <div id="tree" class="tree" aria-live="polite">
+        <div class="tree-loading">
+          <span class="spinner"></span>
+          <span>正在扫描章节列表…</span>
+        </div>
+      </div>
+      <div class="tree-foot">
+        <span class="legend-dot"></span>
+        <span>Part 是导出单位；章节与分类可整组勾选。</span>
+      </div>
+    </aside>
+
+    <section class="workspace">
+      <div class="panel selection-panel">
+        <div class="selection-head">
+          <div>
+            <div class="eyebrow">当前选择</div>
+            <div class="selection-count"><span id="selectedParts">0</span><span class="unit">Part</span></div>
+            <p id="selectionMeta" class="muted">还没有勾选任何 Part。</p>
+          </div>
+          <div class="selection-actions">
+            <label class="resolution-line">
+              <span>分辨率</span>
+              <select id="resolution">
+                <option value="720">720p</option>
+                <option value="1080" selected>1080p（默认）</option>
+                <option value="1440">1440p / 2K</option>
+                <option value="2160">2160p / 4K（大文件）</option>
+              </select>
+            </label>
+            <label class="switch-line">
+              <input id="forceOverwrite" type="checkbox">
+              <span>覆盖已存在的输出</span>
+            </label>
+            <button id="extractBtn" class="btn btn-primary" type="button" disabled>开始提取</button>
+          </div>
+        </div>
+        <div id="selectionChips" class="chips"></div>
+      </div>
+
+      <div id="jobPanel" class="panel job-panel hidden">
+        <div class="job-head">
+          <div>
+            <div class="eyebrow">提取任务</div>
+            <h2 id="jobTitle">等待中…</h2>
+            <p id="jobStage" class="muted"></p>
+          </div>
+          <div class="job-actions">
+            <span id="jobStatus" class="status-pill">queued</span>
+            <button id="cancelBtn" class="btn btn-ghost hidden" type="button">取消</button>
+          </div>
+        </div>
+        <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+        <div class="progress-meta">
+          <span id="progressText">0%</span>
+          <span id="jobCounts"></span>
+        </div>
+
+        <div id="errorsBox" class="errors hidden"></div>
+
+        <div class="job-columns">
+          <div class="job-col">
+            <h3>输出</h3>
+            <div id="outputs" class="outputs">
+              <p class="muted">任务完成后，这里会列出每个 Part 的视频和字幕。</p>
+            </div>
+          </div>
+          <div class="job-col">
+            <div class="job-col-head">
+              <h3>运行日志</h3>
+              <div class="log-tools"><span id="logMeta" class="log-meta"></span><button id="logToggle" class="mini-btn" type="button">展开</button></div>
+            </div>
+            <div id="jobLog" class="job-log"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel info-panel">
+        <h2>输出说明</h2>
+        <div class="info-grid">
+          <div>
+            <h3>视频</h3>
+            <p>按 Part 边界重新编码切分，H.264 + AAC，精确到时间戳，不是关键帧粗略切割。</p>
+          </div>
+          <div>
+            <h3>字幕</h3>
+            <p>英文稿与中文稿按站点 Voice ID 逐句配对；时间由录音的英文词级字幕对齐，并用每句语音时长校正。</p>
+          </div>
+          <div>
+            <h3>校验</h3>
+            <p>每个 Part 先写入临时目录，通过 SRT 重新解析、时间单调性、双语行数与视频时长检查后才会原子发布。</p>
+          </div>
+          <div>
+            <h3>失败处理</h3>
+            <p>单个 Part 失败会重试一次并记录错误，其他 Part 继续；失败项不会留下半成品文件。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

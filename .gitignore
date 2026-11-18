@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# Build outputs (installer artifacts are not committed)
+build/
+dist/
+release/
+
+# Runtime user data / local caches
+data/state.json
+data/vocab.db
+data/vocab.db-shm
+data/vocab.db-wal
+data/dict/
+data/thumbs/
+data/extractor/
+extractor/data/
+extractor/output/
+tools/ecdict.csv
+
+# Local-only test helpers
+_*.mjs
+*.log

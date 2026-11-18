@@ -1,0 +1,13 @@
+# 回溯 runtime dependencies.
+# The core app uses only the Python standard library.
+# The bundled resource extractor needs:
+requests>=2.31
+beautifulsoup4>=4.12
+lxml>=5.0
+yt-dlp>=2024.1
+
+# Optional local ASR fallback for recordings without usable captions:
+# faster-whisper>=1.0
+
+# Native desktop window
+pywebview>=6.0
